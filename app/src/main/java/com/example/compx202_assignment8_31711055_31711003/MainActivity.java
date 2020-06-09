@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             y = new float[5];
             radius = 50;
             paint = new Paint();
-            paint.setColor(getColor(android.R.color.darker_gray)); //test the pull and push according to the color
+            paint.setColor(getColor(android.R.color.holo_blue_dark)); //test the pull and push according to the color
             numPoints = 0;
         }
 
