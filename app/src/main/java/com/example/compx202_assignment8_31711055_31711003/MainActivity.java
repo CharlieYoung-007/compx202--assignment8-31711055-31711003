@@ -6,10 +6,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,11 +73,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ConstraintLayout rootView = (ConstraintLayout) findViewById(R.id.rootView);
-
         GraphicView myView = new GraphicView(this);
 
+        //set logo drawable
+        ImageView logo_image = (ImageView)findViewById(R.id.imageViewLogo);
+        Drawable drawLogo = getDrawable(R.drawable.logo);
+        logo_image.setImageDrawable(drawLogo);
+
+
+
+
+
+
+        ConstraintLayout rootView = (ConstraintLayout) findViewById(R.id.rootView);
+
         rootView.addView(myView);
+
+
 
     }
 
