@@ -5,8 +5,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -79,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView logo_image = (ImageView)findViewById(R.id.imageViewLogo);
         Drawable drawLogo = getDrawable(R.drawable.logo);
         logo_image.setImageDrawable(drawLogo);
-
-
-
 
 
 
