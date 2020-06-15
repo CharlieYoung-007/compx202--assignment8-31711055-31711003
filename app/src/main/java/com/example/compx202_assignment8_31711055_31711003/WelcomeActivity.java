@@ -22,7 +22,6 @@ public class WelcomeActivity extends FullScreenActivity {
     }
 
     public void onClickButtonStart(View v){
-        Toast.makeText(this, "message", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
