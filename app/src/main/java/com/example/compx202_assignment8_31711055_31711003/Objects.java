@@ -32,4 +32,5 @@ abstract public class Objects {
     public void setColor(int color) {
         this.color = color;
     }
+
 }

@@ -23,6 +23,9 @@ public class GameActivity extends FullScreenActivity {
         public GameCanvas(Context context) {
             super(context);
             setupScoreBall();
+            setupObstacles();
+            setupMoveBall();
+            setupTargets();
         }
 
         //Set OnDraw to draw a circle
@@ -38,14 +41,48 @@ public class GameActivity extends FullScreenActivity {
         private void setupScoreBall() {
             // create targets
 
-            //default scoreBall Coordinates which needs to change
-            int[][] scoreBallCoordinates= {{550, 200}, {700, 400}, {150, 800}, {350, 500}, {350, 1400}, {750, 800}};
+            //default scoreBall Coordinates
+            int[][] scoreBallCoordinates= {{550, 1000}, {800, 400}, {150, 800}, {700, 1200}, {350, 1700}, {650, 1900}};
             int scores = 3; //Default score
             for (int i = 0; i < scoreBall.length; i++) {
                 scoreBall[i] = new DrawCircle(scoreBallCoordinates[i][0], scoreBallCoordinates[i][1], 50, scores);
-                scoreBall[i].setColor(getResources().getColor(R.color.colorPrimary)); //default Color which needs to change
+                scoreBall[i].setColor(getResources().getColor(R.color.goldCoin)); //scoreBall color
             }
         }
+
+        private void setupObstacles() {
+            // create obstacles
+
+            //default triangle Coordinates
+            int[][] obstaclesCoordinates= {{550, 1350}, {750, 550}, {250, 850}, {350, 500}, {300, 1450}, {700, 1650}};
+            for (int i = 0; i < obstacles.length; i++) {
+                obstacles[i] = new DrawRectangle(obstaclesCoordinates[i][0], obstaclesCoordinates[i][1], 100,100);
+                obstacles[i].setColor(getResources().getColor(R.color.obstacles)); //obstacles color
+            }
+        }
+
+        private void setupMoveBall() {
+            // create move ball
+
+            //default moveBall Coordinates
+            int[] moveBallCoordinates= new int[]{300, 300};
+            int score = 0;
+            moveBall = new DrawCircle(550, 100, 50, score);
+            moveBall.setColor(getResources().getColor(R.color.pinkBall)); //scoreBall color
+
+        }
+
+        private void setupTargets() {
+            // create bottom targets
+
+            //default targets Coordinates
+            int[] targetCoordinates= new int[]{300, 300};
+            int score = 0;
+            targets = new DrawRectangle(400, 2240, 300,35);
+            targets.setColor(getResources().getColor(R.color.pinkBall)); //bottom targets color
+
+        }
+
         private void drawObjects(Canvas canvas) {
 
             // draw targets
@@ -54,7 +91,27 @@ public class GameActivity extends FullScreenActivity {
                 canvas.drawCircle((float) target.getX(), (float) target.getY(), (float) target.getR(), paint);
             }
 
+            //draw obstacles
+            paint.setColor(obstacles[0].getColor());
+            for (DrawRectangle obstacle: obstacles) {
+                canvas.drawRect((float) obstacle.getX(),(float)obstacle.getY(),
+                        (float)(obstacle.getX()+obstacle.getWidth()),(float)(obstacle.getY()+obstacle.getHeight()),paint);
+            }
+
+            //draw moveBall
+            paint.setColor(moveBall.getColor());
+            canvas.drawCircle((float) moveBall.getX(), (float) moveBall.getY(), (float) moveBall.getR(), paint);
+
+            //draw bottom targets
+            paint.setColor(targets.getColor());
+            canvas.drawRect((float) targets.getX(), (float) targets.getY(),
+                    (float)(targets.getX()+targets.getWidth()),(float)(targets.getY()+targets.getHeight()),paint);
+
+
         }
+
+
+
 
 
     }

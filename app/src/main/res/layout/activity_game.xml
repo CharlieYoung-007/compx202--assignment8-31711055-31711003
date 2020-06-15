@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/GameView">
+    //score print
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
 
+        <TextView
+            android:id="@+id/gameScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="20dp"
+            android:textSize="@dimen/scoreSize"
+            android:textColor="@color/obstacles"
+            android:text="SCORE: "/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

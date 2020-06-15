@@ -7,4 +7,5 @@
     <color name="goldCoin">#FFEF94</color>
     <color name="pinkBall">#FF80B1</color>
     <color name="buttonBackground">#FFFFFF</color>
+    <color name="obstacles">#47B9BF</color>
 </resources>
