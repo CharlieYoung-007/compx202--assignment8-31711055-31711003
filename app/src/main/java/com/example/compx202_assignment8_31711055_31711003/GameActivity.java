@@ -42,7 +42,7 @@ public class GameActivity extends FullScreenActivity {
             // create targets
 
             //default scoreBall Coordinates
-            int[][] scoreBallCoordinates= {{550, 1000}, {800, 400}, {150, 800}, {700, 1200}, {350, 1700}, {650, 1900}};
+            int[][] scoreBallCoordinates=  {{550, 900}, {800, 300}, {150, 700}, {700, 1100}, {350, 1600}, {300, 1200}};
             int scores = 3; //Default score
             for (int i = 0; i < scoreBall.length; i++) {
                 scoreBall[i] = new DrawCircle(scoreBallCoordinates[i][0], scoreBallCoordinates[i][1], 50, scores);
@@ -54,7 +54,7 @@ public class GameActivity extends FullScreenActivity {
             // create obstacles
 
             //default triangle Coordinates
-            int[][] obstaclesCoordinates= {{550, 1350}, {750, 550}, {250, 850}, {350, 500}, {300, 1450}, {700, 1650}};
+            int[][] obstaclesCoordinates= {{550, 1250}, {750, 450}, {250, 750}, {350, 400}, {300, 1350}, {700, 1550}};
             for (int i = 0; i < obstacles.length; i++) {
                 obstacles[i] = new DrawRectangle(obstaclesCoordinates[i][0], obstaclesCoordinates[i][1], 100,100);
                 obstacles[i].setColor(getResources().getColor(R.color.obstacles)); //obstacles color
@@ -67,7 +67,7 @@ public class GameActivity extends FullScreenActivity {
             //default moveBall Coordinates
             int[] moveBallCoordinates= new int[]{300, 300};
             int score = 0;
-            moveBall = new DrawCircle(550, 100, 50, score);
+            moveBall = new DrawCircle(550, 1700, 50, score);
             moveBall.setColor(getResources().getColor(R.color.pinkBall)); //scoreBall color
 
         }
@@ -78,7 +78,7 @@ public class GameActivity extends FullScreenActivity {
             //default targets Coordinates
             int[] targetCoordinates= new int[]{300, 300};
             int score = 0;
-            targets = new DrawRectangle(400, 2240, 300,35);
+            targets = new DrawRectangle(0,0,1200,35);
             targets.setColor(getResources().getColor(R.color.pinkBall)); //bottom targets color
 
         }
