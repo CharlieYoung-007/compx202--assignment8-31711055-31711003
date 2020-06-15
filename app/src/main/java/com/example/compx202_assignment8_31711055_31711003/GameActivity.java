@@ -39,6 +39,7 @@ public class GameActivity extends FullScreenActivity {
         }
 
         private void setupScoreBall() {
+            // create targets
 
             //default scoreBall Coordinates
             int[][] scoreBallCoordinates= {{550, 1000}, {800, 400}, {150, 800}, {700, 1200}, {350, 1700}, {650, 1900}};
@@ -64,7 +65,9 @@ public class GameActivity extends FullScreenActivity {
             // create move ball
 
             //default moveBall Coordinates
-            moveBall = new DrawCircle(550, 100, 50, 0);
+            int[] moveBallCoordinates= new int[]{300, 300};
+            int score = 0;
+            moveBall = new DrawCircle(550, 100, 50, score);
             moveBall.setColor(getResources().getColor(R.color.pinkBall)); //scoreBall color
 
         }
@@ -73,6 +76,8 @@ public class GameActivity extends FullScreenActivity {
             // create bottom targets
 
             //default targets Coordinates
+            int[] targetCoordinates= new int[]{300, 300};
+            int score = 0;
             targets = new DrawRectangle(400, 2240, 300,35);
             targets.setColor(getResources().getColor(R.color.pinkBall)); //bottom targets color
 
@@ -105,6 +110,10 @@ public class GameActivity extends FullScreenActivity {
 
         }
 
+
+
+
+
     }
 
     @Override
@@ -118,6 +127,7 @@ public class GameActivity extends FullScreenActivity {
 
         //Add the custom view to the ConstraintLayout
         root.addView(myView);
+
 
     }
 }
