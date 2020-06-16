@@ -1,8 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rankingView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:text="RANKING"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/colorButton">
+            </TextView>
+
+                <ImageView
+                    android:id="@+id/imageViewLogo"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo"
+                    tools:ignore="MissingConstraints" />
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort"
+                android:layout_marginRight="50dp"
+                android:textSize="25dp"
+                android:textColor="@color/colorButton">
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score"
+                android:layout_marginLeft="50dp"
+                android:textSize="25dp"
+                android:textColor="@color/colorButton">
+            </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorButton">
+            </TextView>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorButton">
+            </TextView>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorButton">
+            </TextView>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorButton">
+            </TextView>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorButton">
+            </TextView>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
