@@ -22,7 +22,7 @@ public class GameActivity extends FullScreenActivity {
         // objects
         private DrawCircle moveBall;
         private DrawRectangle endGameBar; //the target object in the top of screen
-        private DrawCircle[] scoreBall = new DrawCircle[6]; //How many scoring balls are preset
+        private DrawCircle[] scoreBalls = new DrawCircle[6]; //How many scoring balls are preset
         private DrawRectangle[] obstacles = new DrawRectangle[6]; //How many obstacles are preset
 
         private float speedX = 0;
@@ -31,6 +31,7 @@ public class GameActivity extends FullScreenActivity {
         protected boolean directUp = true;
         private float screenWidth = getWidth();
         private float screenHeight = getHeight();
+        private boolean isPlaying = false;
 
         private float x = 500;
         private float y = 1900;
@@ -54,9 +55,9 @@ public class GameActivity extends FullScreenActivity {
             //default scoreBall Coordinates
             int[][] scoreBallCoordinates = {{550, 900}, {800, 300}, {150, 700}, {700, 1100}, {350, 1600}, {300, 1200}};
             int scores = 3; //Default score
-            for (int i = 0; i < scoreBall.length; i++) {
-                scoreBall[i] = new DrawCircle(scoreBallCoordinates[i][0], scoreBallCoordinates[i][1], 50, scores);
-                scoreBall[i].setColor(getResources().getColor(R.color.goldCoin)); //scoreBall color
+            for (int i = 0; i < scoreBalls.length; i++) {
+                scoreBalls[i] = new DrawCircle(scoreBallCoordinates[i][0], scoreBallCoordinates[i][1], 50, scores);
+                scoreBalls[i].setColor(getResources().getColor(R.color.goldCoin)); //scoreBall color
             }
         }
 
@@ -95,8 +96,11 @@ public class GameActivity extends FullScreenActivity {
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
             drawObjects(canvas);
-            flingBall();
 
+            flingBall();
+            collisionWithOb();
+            collisionWithScoreBall();
+            endGame();
 
             invalidate();
         }
@@ -155,23 +159,60 @@ public class GameActivity extends FullScreenActivity {
             moveBall.setY(y);
         }
 
-        private void collisionWithOb(){
+        private void collisionWithOb() {
+            for (DrawRectangle obstacle : obstacles) {
+                if (!moveBall.rectIntersect(obstacle)) {
+                    continue;
+                } else {
+                    if (moveBall.afterCollisionOb(obstacle)) {
+                        directUp = !directUp;
+                    } else {
+                        directRight = !directRight;
+                    }
+                }
+                return;
+            }
 
         }
 
-        private void collisionWithScoreBall(){
+        private void reset() {
+            x = 500;
+            y = 1900;
+            speedX = 0;
+            speedY = 0;
+            moveBall.setScore(0);
+        }
+
+
+        private void collisionWithScoreBall() {
+            for (DrawCircle scoreBall : scoreBalls) {
+                if (!moveBall.cIntersect(scoreBall)) {
+                    continue;
+                } else {
+                    //make the ball disappear from the screen
+                    scoreBall.setX(2000);
+                    scoreBall.setY(1000);
+                }
+                moveBall.addScore(scoreBall.getScore());
+                return;
+            }
 
         }
 
-        private void endGame(){
+        private void endGame() {
+            if (moveBall.rectIntersect(endGameBar)) {
+                setupScoreBall();
+                reset();
+                isPlaying = false;
+            }
 
         }
 
         private void drawObjects(Canvas canvas) {
 
             // draw targets
-            paint.setColor(scoreBall[0].getColor());
-            for (DrawCircle target : scoreBall) {
+            paint.setColor(scoreBalls[0].getColor());
+            for (DrawCircle target : scoreBalls) {
                 canvas.drawCircle((float) target.getX(), (float) target.getY(), (float) target.getR(), paint);
             }
 
@@ -227,21 +268,28 @@ public class GameActivity extends FullScreenActivity {
                 if (e1.getX() > e2.getX()) {
                     directRight = false;
                     speedX = -speedX;
+                    return true;
                 }
                 //To the right
                 if (e1.getX() < e2.getX()) {
                     directRight = true;
+                    return true;
                 }
                 //down
                 if (e1.getY() < e2.getY()) {
                     directUp = false;
                     speedY = -speedY;
+                    return true;
                 }
                 //Up
                 if (e1.getY() > e2.getY()) {
                     directUp = true;
+                    return true;
                 }
-                return true;
+
+                isPlaying = true;
+
+                return false;
             }
         }
 
