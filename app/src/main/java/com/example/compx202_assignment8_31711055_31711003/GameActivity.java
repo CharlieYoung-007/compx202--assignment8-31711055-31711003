@@ -1,6 +1,9 @@
 package com.example.compx202_assignment8_31711055_31711003;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 public class GameActivity extends FullScreenActivity {
 
     private TextView scoreView;
+    private int currentScore = 0;
 
     //Create a graphic view class extending view
     public class GameCanvas extends View {
@@ -36,7 +40,7 @@ public class GameActivity extends FullScreenActivity {
         private float screenWidth = getWidth();
         private float screenHeight = getHeight();
         protected boolean isPlaying = false;
-        private int currentScore = 0;
+
 
         private float x = 500;
         private float y = 1900;
@@ -68,7 +72,6 @@ public class GameActivity extends FullScreenActivity {
 
         private void setupObstacles() {
             // create obstacles
-
             //default triangle Coordinates
             int[][] obstaclesCoordinates = {{550, 1250}, {750, 450}, {250, 750}, {350, 400}, {300, 1350}, {700, 1550}};
             for (int i = 0; i < obstacles.length; i++) {
@@ -208,6 +211,11 @@ public class GameActivity extends FullScreenActivity {
         private void endGame() {
             if (moveBall.rectIntersect(endGameBar)) {
                 setupScoreBall();
+
+                Intent intent = new Intent(GameActivity.this, GameOver.class);
+                intent.putExtra("score",String.valueOf(currentScore));
+                startActivity(intent);
+
                 reset();
                 isPlaying = false;
             }
@@ -321,8 +329,10 @@ public class GameActivity extends FullScreenActivity {
         //set the score view
         scoreView = findViewById(R.id.scoreView);
 
+
         //Add the custom view to the ConstraintLayout
         root.addView(myView);
 
     }
+
 }
