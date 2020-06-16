@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/gameScore"
@@ -20,5 +21,15 @@
             android:textSize="@dimen/scoreSize"
             android:textColor="@color/obstacles"
             android:text="SCORE: "/>
+
+        <TextView
+            android:id="@+id/scoreView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="2dp"
+            android:textSize="@dimen/scoreSize"
+            android:textColor="@color/obstacles"
+          />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

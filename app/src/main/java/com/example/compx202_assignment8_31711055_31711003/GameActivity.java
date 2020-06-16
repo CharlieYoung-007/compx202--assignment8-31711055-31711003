@@ -8,10 +8,14 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class GameActivity extends FullScreenActivity {
+
+    private TextView scoreView;
 
     //Create a graphic view class extending view
     public class GameCanvas extends View {
@@ -31,7 +35,8 @@ public class GameActivity extends FullScreenActivity {
         protected boolean directUp = true;
         private float screenWidth = getWidth();
         private float screenHeight = getHeight();
-        private boolean isPlaying = false;
+        protected boolean isPlaying = false;
+        private int currentScore = 0;
 
         private float x = 500;
         private float y = 1900;
@@ -101,6 +106,7 @@ public class GameActivity extends FullScreenActivity {
             collisionWithOb();
             collisionWithScoreBall();
             endGame();
+            showScore();
 
             invalidate();
         }
@@ -208,6 +214,11 @@ public class GameActivity extends FullScreenActivity {
 
         }
 
+        public void showScore() {
+            currentScore = moveBall.getScore();
+            scoreView.setText(String.valueOf(currentScore));
+        }
+
         private void drawObjects(Canvas canvas) {
 
             // draw targets
@@ -296,6 +307,8 @@ public class GameActivity extends FullScreenActivity {
 
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -304,6 +317,9 @@ public class GameActivity extends FullScreenActivity {
 
         //Create an instance of the custom view
         GameCanvas myView = new GameCanvas(this);
+
+        //set the score view
+        scoreView = findViewById(R.id.scoreView);
 
         //Add the custom view to the ConstraintLayout
         root.addView(myView);
