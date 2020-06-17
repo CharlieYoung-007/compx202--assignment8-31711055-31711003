@@ -22,7 +22,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="80dp"
+                android:layout_margin="100dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -47,7 +47,28 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:gravity="center"
+
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Adventure Ball"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorButton"
+                    android:textSize="40dp">
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Charlie - Jane"
+                    android:textAlignment="center"
+                    android:textColor="@color/pinkBall"
+                    android:textStyle="italic"
+                    android:textSize="30dp"
+                    android:layout_marginBottom="50dp">
+                </TextView>
 
                 <Button
                     android:id="@+id/startButton"
@@ -64,19 +85,6 @@
                     tools:ignore="MissingConstraints" />
             </LinearLayout>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/goRanking"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:background="@drawable/setborder"
-            android:text="@string/ranking"
-            android:onClick="onClickButtonGoRanking"
-            android:textColor="@color/colorButton"
-            android:textSize="@dimen/startSize"
-            tools:ignore="MissingConstraints" />
 
     </LinearLayout>
 

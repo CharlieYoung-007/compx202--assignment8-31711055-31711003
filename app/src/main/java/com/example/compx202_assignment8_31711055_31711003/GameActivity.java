@@ -1,8 +1,6 @@
 package com.example.compx202_assignment8_31711055_31711003;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -16,10 +14,15 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.Arrays;
+
 public class GameActivity extends FullScreenActivity {
 
     private TextView scoreView;
     private int currentScore = 0;
+
+    private int[] scoreArray;
+    private int scoreNumber;
 
     //Create a graphic view class extending view
     public class GameCanvas extends View {
@@ -39,7 +42,6 @@ public class GameActivity extends FullScreenActivity {
         protected boolean directUp = true;
         private float screenWidth = getWidth();
         private float screenHeight = getHeight();
-        protected boolean isPlaying = false;
 
 
         private float x = 500;
@@ -109,11 +111,15 @@ public class GameActivity extends FullScreenActivity {
             collisionWithOb();
             collisionWithScoreBall();
             endGame();
+            recordScores(5);
             showScore();
 
             invalidate();
         }
 
+        /**
+         * keep the moveBall in the screen
+         */
         private void flingBall() {
             if (x >= screenWidth) {
                 directRight = false;
@@ -168,6 +174,9 @@ public class GameActivity extends FullScreenActivity {
             moveBall.setY(y);
         }
 
+        /**
+         * when two objects has a collision, the moveBall will change the direction
+         */
         private void collisionWithOb() {
             for (DrawRectangle obstacle : obstacles) {
                 if (!moveBall.rectIntersect(obstacle)) {
@@ -192,7 +201,70 @@ public class GameActivity extends FullScreenActivity {
             moveBall.setScore(0);
         }
 
+        /**
+         * prepare the score which is in a array to sent to the ranking screen
+         */
+        public void transferRanking() {
 
+            // prepare ranked data
+            String[] scores = new String[scoreNumber == 0 ? 1 : scoreNumber];
+            if (scoreNumber > 0) {
+                for (int i = 0; i < scoreNumber; i++) {
+                    scores[i] = scoreArray[scoreArray.length - 1 - i] + "";
+                }
+            }
+
+            // jump to score screen
+            Intent intent = new Intent(GameActivity.this, RankingActivity.class);
+            intent.putExtra("scores", scores);
+            startActivity(intent);
+        }
+
+        /**
+         * store the top5 scores
+         *
+         * @param top5
+         */
+        private void recordScores(int top5) {
+            // exclude 0 score
+            if (currentScore == 0) {
+                return;
+            }
+            if (scoreArray == null) {
+                scoreArray = new int[top5];
+            }
+
+            // return if is duplicated
+            for (int i = top5 - 1; i >= top5 - scoreNumber; i--) {
+                if (scoreArray[i] == currentScore) return;
+            }
+
+            //score array is full
+            if (scoreNumber == top5) {
+                if (currentScore < scoreArray[0]) {
+                    return;
+                }
+
+                // update and resort array
+                scoreArray[0] = currentScore;
+                if (scoreArray[0] > scoreArray[1]) {
+                    Arrays.sort(scoreArray);
+                }
+                return;
+            } else {
+                scoreArray[top5 - scoreNumber - 1] = currentScore;
+            }
+
+            // resort the array only if new score is bigger than the smallest score
+            if (scoreNumber >= 1 && scoreArray[top5 - scoreNumber - 1] > scoreArray[top5 - scoreNumber]) {
+                Arrays.sort(scoreArray);
+            }
+            scoreNumber += 1;
+        }
+
+        /**
+         * when two has collision, the scoreBall will move away from the screen
+         */
         private void collisionWithScoreBall() {
             for (DrawCircle scoreBall : scoreBalls) {
                 if (!moveBall.cIntersect(scoreBall)) {
@@ -208,20 +280,17 @@ public class GameActivity extends FullScreenActivity {
 
         }
 
+        /**
+         * when the game end, scores will go to the ranking screen
+         *
+         * reset the ball's score and make the scoreBall move back to the screen
+         */
+
         private void endGame() {
             if (moveBall.rectIntersect(endGameBar)) {
                 setupScoreBall();
-
-                Intent intent = new Intent(GameActivity.this, GameOver.class);
-                if (currentScore <10){
-                    intent.putExtra("score",String.valueOf("0"+currentScore));
-                }else {
-                    intent.putExtra("score",String.valueOf(currentScore));
-                }
-                startActivity(intent);
-
+                transferRanking();
                 reset();
-                isPlaying = false;
             }
 
         }
@@ -231,6 +300,10 @@ public class GameActivity extends FullScreenActivity {
             scoreView.setText(String.valueOf(currentScore));
         }
 
+        /**
+         * draw 4 objects
+         * @param canvas
+         */
         private void drawObjects(Canvas canvas) {
 
             // draw targets
@@ -269,10 +342,6 @@ public class GameActivity extends FullScreenActivity {
             if (gestureDetector.onTouchEvent(event)) {
                 return true;
             }
-            x = 500;
-            y = 1900;
-            speedX = 0;
-            speedY = 0;
             return super.onTouchEvent(event);
         }
 
@@ -310,15 +379,12 @@ public class GameActivity extends FullScreenActivity {
                     return true;
                 }
 
-                isPlaying = true;
-
                 return false;
             }
         }
 
 
     }
-
 
 
     @Override
@@ -336,7 +402,6 @@ public class GameActivity extends FullScreenActivity {
 
         //Add the custom view to the ConstraintLayout
         root.addView(myView);
-
     }
 
 }

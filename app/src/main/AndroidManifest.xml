@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.compx202_assignment8_31711055_31711003.GameActivity" />
-        <activity android:name="com.example.compx202_assignment8_31711055_31711003.GameOver" />
         <activity android:name="com.example.compx202_assignment8_31711055_31711003.RankingActivity" />
     </application>
 

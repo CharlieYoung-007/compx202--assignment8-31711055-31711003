@@ -25,9 +25,4 @@ public class WelcomeActivity extends FullScreenActivity {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
-
-    public void onClickButtonGoRanking(View v){
-        Intent intent = new Intent(this, RankingActivity.class);
-        startActivity(intent);
-    }
 }
