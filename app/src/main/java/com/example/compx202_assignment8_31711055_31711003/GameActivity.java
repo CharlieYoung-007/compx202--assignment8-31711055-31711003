@@ -213,7 +213,11 @@ public class GameActivity extends FullScreenActivity {
                 setupScoreBall();
 
                 Intent intent = new Intent(GameActivity.this, GameOver.class);
-                intent.putExtra("score",String.valueOf(currentScore));
+                if (currentScore <10){
+                    intent.putExtra("score",String.valueOf("0"+currentScore));
+                }else {
+                    intent.putExtra("score",String.valueOf(currentScore));
+                }
                 startActivity(intent);
 
                 reset();
