@@ -23,6 +23,7 @@ public class GameActivity extends FullScreenActivity {
     protected TextView gameRoundNum;
 
     private int currentScore = 0;
+    private int finalScore =0;
 
     private int[] scoreArray;
     private int scoreNumber;
@@ -233,7 +234,7 @@ public class GameActivity extends FullScreenActivity {
          */
         private void recordScores() {
             // exclude 0 score
-            if (currentScore == 0) {
+            if (finalScore == 0) {
                 return;
             }
             if (scoreArray == null) {
@@ -242,22 +243,24 @@ public class GameActivity extends FullScreenActivity {
 
             // return if is duplicated
             for (int i = 5 - 1; i >= 5 - scoreNumber; i--) {
-                if (scoreArray[i] == currentScore) return;
+                if (scoreArray[i] == finalScore){
+                    return;
+                }
             }
 
             //score array is full
             if (scoreNumber == 5) {
-                if (currentScore < scoreArray[0]) {
+                if (finalScore < scoreArray[0]) {
                     return;
                 }
                 // update and resort array
-                scoreArray[0] = currentScore;
+                scoreArray[0] = finalScore;
                 if (scoreArray[0] > scoreArray[1]) {
                     Arrays.sort(scoreArray);
                 }
                 return;
             } else {
-                scoreArray[5 - scoreNumber - 1] = currentScore;
+                scoreArray[5 - scoreNumber - 1] = finalScore;
             }
 
             // resort the array only if new score is bigger than the smallest score
@@ -295,6 +298,7 @@ public class GameActivity extends FullScreenActivity {
             if (moveBall.rectIntersect(endGameBar)) {
                 dead = dead + 1;
                 setupScoreBall();
+                finalScore = currentScore;
                 reset();
             }
         }
