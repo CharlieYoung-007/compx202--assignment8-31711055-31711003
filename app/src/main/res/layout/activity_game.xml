@@ -1,35 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/GameView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/GameView">
+    android:layout_height="match_parent">
     //score print
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/gameScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:padding="20dp"
-            android:textSize="@dimen/scoreSize"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="SCORE: "
             android:textColor="@color/obstacles"
-            android:text="SCORE: "/>
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/scoreView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:padding="2dp"
-            android:textSize="@dimen/scoreSize"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textColor="@color/pinkBall"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PLAY 5 TIMES"
+            android:textStyle="bold"
+            android:textAlignment="center"
             android:textColor="@color/obstacles"
-          />
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/gameRound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="ROUND: "
+            android:textColor="@color/obstacles"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/gameRoundNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:padding="2dp"
+            android:textColor="@color/pinkBall"
+            android:textSize="15dp" />
+
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

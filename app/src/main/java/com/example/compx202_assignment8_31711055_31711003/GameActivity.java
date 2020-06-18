@@ -18,7 +18,10 @@ import java.util.Arrays;
 
 public class GameActivity extends FullScreenActivity {
 
-    private TextView scoreView;
+
+    protected TextView scoreView;
+    protected TextView gameRoundNum;
+
     private int currentScore = 0;
 
     private int[] scoreArray;
@@ -42,7 +45,7 @@ public class GameActivity extends FullScreenActivity {
         protected boolean directUp = true;
         private float screenWidth = getWidth();
         private float screenHeight = getHeight();
-
+        private int dead = 1;
 
         private float x = 500;
         private float y = 1900;
@@ -110,11 +113,16 @@ public class GameActivity extends FullScreenActivity {
             flingBall();
             collisionWithOb();
             collisionWithScoreBall();
-            endGame();
-            recordScores(5);
             showScore();
+            counter();
+            recordScores();
 
-            invalidate();
+            if (dead == 6) {
+                endGame();
+            } else {
+                invalidate();
+            }
+
         }
 
         /**
@@ -222,29 +230,26 @@ public class GameActivity extends FullScreenActivity {
 
         /**
          * store the top5 scores
-         *
-         * @param top5
          */
-        private void recordScores(int top5) {
+        private void recordScores() {
             // exclude 0 score
             if (currentScore == 0) {
                 return;
             }
             if (scoreArray == null) {
-                scoreArray = new int[top5];
+                scoreArray = new int[5];
             }
 
             // return if is duplicated
-            for (int i = top5 - 1; i >= top5 - scoreNumber; i--) {
+            for (int i = 5 - 1; i >= 5 - scoreNumber; i--) {
                 if (scoreArray[i] == currentScore) return;
             }
 
             //score array is full
-            if (scoreNumber == top5) {
+            if (scoreNumber == 5) {
                 if (currentScore < scoreArray[0]) {
                     return;
                 }
-
                 // update and resort array
                 scoreArray[0] = currentScore;
                 if (scoreArray[0] > scoreArray[1]) {
@@ -252,11 +257,11 @@ public class GameActivity extends FullScreenActivity {
                 }
                 return;
             } else {
-                scoreArray[top5 - scoreNumber - 1] = currentScore;
+                scoreArray[5 - scoreNumber - 1] = currentScore;
             }
 
             // resort the array only if new score is bigger than the smallest score
-            if (scoreNumber >= 1 && scoreArray[top5 - scoreNumber - 1] > scoreArray[top5 - scoreNumber]) {
+            if (scoreNumber >= 1 && scoreArray[5 - scoreNumber - 1] > scoreArray[5 - scoreNumber]) {
                 Arrays.sort(scoreArray);
             }
             scoreNumber += 1;
@@ -282,26 +287,34 @@ public class GameActivity extends FullScreenActivity {
 
         /**
          * when the game end, scores will go to the ranking screen
-         *
+         * <p>
          * reset the ball's score and make the scoreBall move back to the screen
          */
 
-        private void endGame() {
+        private void counter() {
             if (moveBall.rectIntersect(endGameBar)) {
+                dead = dead + 1;
                 setupScoreBall();
-                transferRanking();
                 reset();
             }
+        }
 
+        private void endGame() {
+            reset();
+            transferRanking();
         }
 
         public void showScore() {
             currentScore = moveBall.getScore();
             scoreView.setText(String.valueOf(currentScore));
+            if (dead <= 5) {
+                gameRoundNum.setText(String.valueOf(dead));
+            }
         }
 
         /**
          * draw 4 objects
+         *
          * @param canvas
          */
         private void drawObjects(Canvas canvas) {
@@ -398,6 +411,8 @@ public class GameActivity extends FullScreenActivity {
 
         //set the score view
         scoreView = findViewById(R.id.scoreView);
+        //show the round
+        gameRoundNum = findViewById(R.id.gameRoundNum);
 
 
         //Add the custom view to the ConstraintLayout
